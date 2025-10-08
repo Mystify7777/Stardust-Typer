@@ -1,0 +1,56 @@
+:root{
+  --bg:#0b1020;
+  --panel:#0f1724;
+  --text:#e6eef8;
+  --accent:#ffd86b;
+}
+
+*{box-sizing:border-box}
+html,body,#root{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;background:linear-gradient(180deg,#071126 0%, #0b1020 100%);color:var(--text)}
+.app{max-width:980px;margin:18px auto;padding:16px}
+.title{text-align:center;margin:8px 0 18px;color:var(--accent)}
+
+.game-wrap{display:flex;gap:16px;align-items:flex-start}
+.left-panel{flex:1}
+.right-panel{width:260px}
+
+.stage{
+  position:relative;
+  width:100%;
+  height:600px;
+  background: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.03), transparent 20%), url('/'); /* placeholder */
+  border-radius:8px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.03);
+}
+
+/* star style */
+.star{
+  position:absolute;
+  transform:translate(-50%, -50%);
+  background:linear-gradient(180deg,#fffefb, #ffd86b);
+  padding:6px 10px;
+  border-radius:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.45);
+  font-weight:700;
+  color:#111;
+  letter-spacing:0.5px;
+  user-select:none;
+  white-space:nowrap;
+}
+
+.star .typed{ color: #fff; background: rgba(0,0,0,0.25); padding:2px 4px; border-radius:3px; margin-right:2px; }
+
+.hud {
+  background:#071126aa;
+  padding:12px;
+  border-radius:8px;
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.03);
+}
+.hud h3{margin:0 0 8px 0}
+.hud .stat{display:flex;justify-content:space-between;margin:6px 0}
+.controls {margin-top:12px}
+.button {padding:8px 10px;border-radius:6px;background:var(--accent);color:#111;border:none;cursor:pointer}
+.inputBox{margin-top:12px}
+.inputBox input{width:100%;padding:10px;border-radius:6px;border:1px solid rgba(255,255,255,0.06);background:#0b1530;color:var(--text)}
