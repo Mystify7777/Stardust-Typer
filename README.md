@@ -57,7 +57,7 @@ See the project structure above for details.
 ### Setup
 
 ```shell
-git clone https://github.com/mystify7777/stardust-typer.git
+git clone https://github.com/Mystify7777/stardust-typer.git
 cd stardust-typer
 yarn install             # or npm install
 yarn start               # or npm start
