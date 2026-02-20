@@ -1,10 +1,10 @@
 import React from 'react'
 import FallingStar from './FallingStar'
 
-export default function StarField({stars}) {
+export default function StarField({stars, activeId}) {
   return (
     <div className="stage">
-      {stars.map(s => <FallingStar key={s.id} star={s} />)}
+      {stars.map(s => <FallingStar key={s.id} star={s} isActive={s.id === activeId} />)}
     </div>
   )
 }

@@ -1,0 +1,30 @@
+# MVP TODO
+
+- [x] Game loop: implement `useGameLoop` to spawn stars from `WORDS`, move them downward with requestAnimationFrame, remove when typed/escaped, and decrement lives when a star reaches the bottom.
+- [x] Input handling: add a keyboard listener to track the active star, advance `typed` on correct keystrokes, and award score when a word completes.
+- [x] Wiring: store `stars` state via the game loop, feed it into `StarField`, and sync `score`/`lives` updates into `GameContainer`.
+- [x] Difficulty: add `difficulty` state in `GameContainer`, pass to `HUD`, and adjust spawn interval/speed/score multiplier per difficulty.
+- [x] Game flow: ensure lives hitting 0 triggers gameover, restart resets state, and menu → playing → gameover transitions work with the new loop.
+- [x] UI refresh: define a consistent layout (stage + HUD column), update menu/gameover panels, and apply shared button styles.
+- [x] Stage visuals: replace placeholder stage background with a starfield gradient/pattern and ensure stars stay readable.
+- [x] Button styling: cover start/restart/menu/difficulty buttons with the shared styles instead of mixed defaults.
+- [ ] Documentation: refresh README and Context with current controls/loop details and any difficulty notes.
+- [ ] Audio/feedback: add basic hit/miss sounds or flashes to make typing feedback clearer.
+- [x] Word set: expand WORDS and vary by difficulty.
+- [ ] Leaderboard: add stubbed component/UI with local in-memory or mock data (skip DB setup for now); keep hooks/API surface ready for future backend.
+- [ ] Settings/UI parity: add Settings/Leaderboard routes or modals per prior plan; allow difficulty selection and word pack toggles there.
+- [ ] Hooks parity: extract star spawning/movement into `useStars`, input handling into `useKeyboardInput`, audio into `useAudio` for separation of concerns.
+- [x] Restart resets: ensure stars/state fully reset on restart/gameover so no prior positions persist.
+- [x] Difficulty change reset: changing difficulty mid-game should reset the round (state + stars) immediately.
+- [ ] Word targeting UX: allow switching the selected/active star using arrow keys to manually pick a target.
+- [x] High scores (local): track and display the last 5 high scores (in-memory or localStorage) until real backend exists.
+- [ ] Difficulty change reset (stars view): ensure visible stars clear when difficulty switches mid-game, not just score/lives.
+- [ ] HUD cleanup: remove the “Type here” input row; highlight the selected difficulty button.
+- [ ] High scores table: move highscores to a separate 2-column table (Difficulty, Score) with 5 rows beneath HUD; add special shading for top 3 entries.
+- [x] Track time per game: show time in HUD and include it in the scores table.
+- [x] Combos: add combo bonus for consecutive successful words and streak-based scoring (includes life-drop streaks).
+- [ ] Perfect-word bonus: extra reward for errorless typing per word.
+- [x] Highlight current target: visually highlight the currently selected word/star.
+- [x] Extra life drop: random chance to gain +1 life when popping stars while lives < 3.
+- [x] Star visuals: restyle word containers to look like stars (shape/glow) instead of pills.
+- [ ] Visual combo presentation: add on-screen feedback/FX when combos increase.

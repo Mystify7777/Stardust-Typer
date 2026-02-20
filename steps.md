@@ -1,0 +1,36 @@
+# Steps Log
+
+- Reviewed provided project structure and current source to understand existing components (GameContainer, StarField, HUD, GameOverModal) and missing logic (empty useGameLoop, no stars wiring).
+- Noted key gaps: no star state passed to StarField, HUD difficulty props unused, no keyboard input or scoring/life loss mechanisms.
+- Created todo.md outlining MVP tasks: build game loop, input handling, wiring of state, difficulty adjustments, game flow guards, light visual polish, and docs update.
+- Logged this summary for traceability and future contributors.
+- Implemented useGameLoop to spawn/move stars, listen for keyboard input, award score, and deduct lives when stars fall off-screen; difficulty now tunes spawn interval, speed, and score multiplier.
+- Wired GameContainer to the loop (stars, score/life updates), added difficulty state, and passed stars into StarField plus controls into HUD.
+- Updated Context and todo to reflect current functionality and remaining tasks; added follow-up tasks for polish, docs, audio, and word list expansion.
+- Added variables.md to document key state/prop names and their purposes for easier navigation.
+- Reviewed legacy progress.md (v0.2) to compare intended features; noted missing leaderboard/Firebase, audio hook, settings modal, and modular hooks.
+- Added new todo items for leaderboard, settings/UI parity, and splitting logic into dedicated hooks to align with the older plan.
+- Adjusted scope: leaderboard will be stubbed locally (no DB integration yet) while keeping the UI/API surface ready for future backend wiring.
+- Refreshed UI: rebuilt GameContainer layout (panelized menu, two-column play view), styled GameOver modal with shared buttons, and enhanced stage visuals/glow via CSS.
+- Marked UI tasks complete in todo and updated Context to reflect the new look.
+- Fixed JSX structure in GameContainer (closed useEffect correctly and removed stray closing tags) to resolve dev build syntax error.
+- Logged bug in bug.md (missing initializer / malformed JSX) with cause and fix for future reference.
+- Repaired accidental re-break: restored startGame, cleaned useEffect dependencies, and removed stray brackets in GameContainer after user edits caused "Missing initializer" again.
+- Gameplay fixes: clearing stars when loop stops to avoid carry-over on restart; restarting the game when difficulty changes mid-play; startGame now fully resets score/lives with the refreshed loop state.
+- Implemented difficulty-based word pools (Easy/Normal/Hard) and wired spawning to use the matching pool via getWordForDifficulty.
+- Added local top-5 high scores stored in localStorage; surfaced in HUD and GameOver modal and tracked in state.
+- Added pause/resume toggle (stage click or spacebar) that halts the loop/input without clearing stars; added loopSeed to reset state on restarts/difficulty changes; HUD shows paused status.
+- Adjusted star spawning to use percentage-based horizontal positions to prevent stars from rendering off-screen.
+- Improved restart/reset: useGameLoop now clears stars when leaving play (but not when pausing) and accepts paused flag; loopSeed still resets timers on start/difficulty changes.
+- Confirmed difficulty changes mid-play now trigger a fresh startGame (with loopSeed reset), so rounds restart with new settings.
+- Ensured StarField remounts on loopSeed changes (keyed by loopSeed) so visible stars clear immediately when restarting or switching difficulty.
+- On difficulty change while playing, now force loopSeed increment and explicit score/life reset (and unpause) to guarantee stars clear and the round restarts cleanly.
+- Further difficulty-change reset: temporarily exit play state, bump loopSeed, reset state, then restart on next tick to ensure components unmount/remount and stars fully clear.
+- HUD/UI: removed unused input, added active styling for selected difficulty buttons, moved highscores to a dedicated Difficulty/Score table with top-3 shading, and stored difficulty with scores.
+- Fixes: migrate legacy numeric highscores to objects, ensure difficulty included when storing highscores, strengthen active difficulty styling, and planned time-per-game tracking (todo added).
+- Added active target highlighting: track `activeId` in useGameLoop, pass to StarField/FallingStar, and restyled stars with a star-like shape plus highlight glow for the current target.
+- Removed the top “Stardust Typer (MVP)” heading and tightened the app container spacing to center the game view without extra vertical margin.
+- Added extra-life drops tied to streaks (heart pickup, capped lives), restyled stars with icon+pill glow, and ensured misses reset combos.
+- Implemented pause-aware playtime tracking; HUD shows live timer, highscores store time, and GameOver displays elapsed time.
+- Added combo multiplier system (up to 3x) with streak tracking, HUD display, and best-combo summary on GameOver; best combo persists across the run.
+- Logged TODO for future visual combo presentation in README/todo.
