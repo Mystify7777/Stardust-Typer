@@ -10,11 +10,12 @@ const DIFFICULTY_CONFIG = {
 const EXTRA_LIFE_STREAK = 8
 const MAX_COMBO_MULTIPLIER = 3
 const COMBO_INCREMENT = 0.1 // +10% per word up to cap
+const PERFECT_BONUS_FACTOR = 0.5 // +50% of base word score when no mistakes
 
 const STAGE_HEIGHT = 600
 
 // Handles spawning/moving stars and typing interaction while the game is running.
-export default function useGameLoop({ isRunning, paused = false, difficulty, resetSeed = 0, onLifeLost, onScoreGain, onLifeGain, onComboChange }) {
+export default function useGameLoop({ isRunning, paused = false, difficulty, resetSeed = 0, onLifeLost, onScoreGain, onLifeGain, onComboChange, onPerfectWord, onPerfectReset }) {
 	const [stars, setStars] = useState([])
 	const [activeId, setActiveId] = useState(null)
 	const rafRef = useRef(null)
@@ -44,7 +45,7 @@ export default function useGameLoop({ isRunning, paused = false, difficulty, res
 	const spawnStar = (type = 'word') => {
 		const word = getWordForDifficulty(difficulty)
 		const x = 8 + Math.random() * 84 // percentage across stage, keeps inside view
-		const star = { id: crypto.randomUUID(), word, x, y: -30, typed: 0, difficulty, type }
+		const star = { id: crypto.randomUUID(), word, x, y: -30, typed: 0, difficulty, type, mistyped: false }
 		syncStars((prev) => [...prev, star])
 	}
 
@@ -125,7 +126,12 @@ export default function useGameLoop({ isRunning, paused = false, difficulty, res
 			const target = candidates.reduce((best, s) => (s.y > best.y ? s : best), candidates[0])
 			setActiveId(target.id)
 			const expectedChar = target.word[target.typed]
-			if (key !== expectedChar.toLowerCase()) return
+			if (key !== expectedChar.toLowerCase()) {
+				// Mark this word as no longer perfect if a wrong key was pressed.
+				syncStars((prev) => prev.map((s) => (s.id === target.id ? { ...s, mistyped: true } : s)))
+				if (onPerfectReset) onPerfectReset()
+				return
+			}
 
 			const nextTyped = target.typed + 1
 			const targetCompleted = nextTyped === target.word.length
@@ -140,8 +146,15 @@ export default function useGameLoop({ isRunning, paused = false, difficulty, res
 
 				reportCombo(comboRef.current + 1)
 				const comboMultiplier = getComboMultiplier()
-				const gained = Math.round(target.word.length * 10 * cfg.scoreMultiplier * comboMultiplier)
-				if (onScoreGain) onScoreGain(gained)
+				const baseScore = target.word.length * 10 * cfg.scoreMultiplier
+				const comboScore = Math.round(baseScore * comboMultiplier)
+				let totalScore = comboScore
+				if (!target.mistyped) {
+					const bonus = Math.round(baseScore * PERFECT_BONUS_FACTOR)
+					totalScore += bonus
+					if (onPerfectWord) onPerfectWord({ base: comboScore, bonus })
+				}
+				if (onScoreGain) onScoreGain(totalScore)
 				if (comboRef.current > 0 && comboRef.current % EXTRA_LIFE_STREAK === 0) {
 					spawnLifePickup()
 				}

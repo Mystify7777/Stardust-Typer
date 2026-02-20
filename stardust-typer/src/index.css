@@ -21,6 +21,18 @@ html,body,#root{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;bac
 .left-panel{flex:1}
 .right-panel{width:280px}
 
+.stage-wrap{position:relative}
+
+.game-heading{
+  grid-column:1 / -1;
+  margin-bottom:4px;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.game-heading .title{margin:0;font-size:22px;letter-spacing:0.4px;color:var(--accent);}
+.game-heading .subtitle{margin:0;color:rgba(230,238,248,0.72);font-size:14px;}
+
 .stage{
   position:relative;
   width:100%;
@@ -92,6 +104,56 @@ html,body,#root{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;bac
 }
 
 .star-life .star-icon{filter:drop-shadow(0 0 10px rgba(255,120,160,0.7));}
+
+.combo-badge{
+  position:absolute;
+  top:12px;
+  right:12px;
+  padding:8px 12px;
+  border-radius:12px;
+  background:linear-gradient(135deg, rgba(255,216,107,0.2), rgba(255,140,73,0.3));
+  border:1px solid rgba(255,216,107,0.5);
+  box-shadow:0 12px 28px rgba(0,0,0,0.35), 0 0 18px rgba(255,216,107,0.35);
+  display:flex;
+  align-items:center;
+  gap:6px;
+  animation:comboPop 700ms ease;
+  backdrop-filter:blur(4px);
+}
+
+.combo-label{font-size:12px; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.8);}
+.combo-value{font-weight:800; color:#ffe08f; font-size:18px; text-shadow:0 0 10px rgba(255,216,107,0.6);}
+
+@keyframes comboPop{
+  0% {transform:scale(0.9); opacity:0;}
+  15% {transform:scale(1.08); opacity:1;}
+  100% {transform:scale(1); opacity:1;}
+}
+
+.perfect-badge{
+  position:absolute;
+  bottom:14px;
+  left:14px;
+  padding:8px 12px;
+  border-radius:12px;
+  background:linear-gradient(135deg, rgba(120,255,180,0.18), rgba(90,200,150,0.28));
+  border:1px solid rgba(140,255,200,0.5);
+  color:#e8fff2;
+  font-weight:800;
+  letter-spacing:0.6px;
+  box-shadow:0 10px 22px rgba(0,0,0,0.32), 0 0 16px rgba(120,255,200,0.35);
+  opacity:0;
+  transform:translateY(10px) scale(0.97);
+  transition:opacity 220ms ease, transform 220ms ease;
+  pointer-events:none;
+  text-shadow:0 0 10px rgba(120,255,200,0.6);
+  backdrop-filter:blur(4px);
+}
+
+.perfect-badge.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
 
 .star .typed{ color: #fff; background: rgba(0,0,0,0.25); padding:2px 4px; border-radius:3px; margin-right:2px; }
 

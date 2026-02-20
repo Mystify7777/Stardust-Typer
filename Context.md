@@ -12,7 +12,7 @@
 - GameOverModal appears when lives drop to 0; restart resets score/lives/time/combo and resumes playing.
 
 ## Components
-- StarField expects a `stars` array and renders FallingStar for each. Each star shows typed vs remaining letters and highlights the active target; life pickups render with a heart icon.
+- StarField expects a `stars` array and renders FallingStar for each. Each star shows typed vs remaining letters and highlights the active target; life pickups render with a heart icon; a combo banner overlays the stage when streaks climb; perfect words trigger a Perfect badge.
 - HUD displays score/lives/difficulty, live time, combo and multiplier, and exposes difficulty buttons.
 - GameOverModal shows final score/time/best combo with restart/menu actions.
 

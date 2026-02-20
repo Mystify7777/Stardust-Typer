@@ -22,9 +22,9 @@
 - [ ] HUD cleanup: remove the “Type here” input row; highlight the selected difficulty button.
 - [ ] High scores table: move highscores to a separate 2-column table (Difficulty, Score) with 5 rows beneath HUD; add special shading for top 3 entries.
 - [x] Track time per game: show time in HUD and include it in the scores table.
-- [x] Combos: add combo bonus for consecutive successful words and streak-based scoring (includes life-drop streaks).
-- [ ] Perfect-word bonus: extra reward for errorless typing per word.
+- [x] Combos: add combo bonus for consecutive successful words and streak-based scoring (includes life-drop streaks) with on-screen combo banner.
+- [x] Perfect-word bonus: extra reward for errorless typing per word with stage badge cue.
 - [x] Highlight current target: visually highlight the currently selected word/star.
 - [x] Extra life drop: random chance to gain +1 life when popping stars while lives < 3.
 - [x] Star visuals: restyle word containers to look like stars (shape/glow) instead of pills.
-- [ ] Visual combo presentation: add on-screen feedback/FX when combos increase.
+- [x] Visual combo presentation: add on-screen feedback/FX when combos increase.

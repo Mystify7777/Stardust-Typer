@@ -34,3 +34,7 @@
 - Implemented pause-aware playtime tracking; HUD shows live timer, highscores store time, and GameOver displays elapsed time.
 - Added combo multiplier system (up to 3x) with streak tracking, HUD display, and best-combo summary on GameOver; best combo persists across the run.
 - Logged TODO for future visual combo presentation in README/todo.
+- Added in-play heading/subtitle above the stage to avoid blank space during gameplay.
+- Added visual combo banner overlay on the stage that animates when streaks increase (combo >= 2).
+- Implemented perfect-word bonus: wrong-key presses flag the word; clean words grant bonus points and trigger a Perfect badge overlay.
+- Improved perfect badge behavior: clears on wrong keys, re-flashes per perfect word, and auto-hides after a short duration.

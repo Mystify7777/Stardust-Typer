@@ -16,9 +16,13 @@ const GameContainer = () => {
   const [elapsedMs, setElapsedMs] = useState(0);
   const [combo, setCombo] = useState(0);
   const [bestCombo, setBestCombo] = useState(0);
+  const [comboFlashKey, setComboFlashKey] = useState(0);
+  const [perfectFlashKey, setPerfectFlashKey] = useState(0);
+  const [perfectVisible, setPerfectVisible] = useState(false);
   const timerRef = useRef(null);
   const startRef = useRef(null);
   const pauseRef = useRef(null);
+  const perfectHideRef = useRef(null);
   const [highScores, setHighScores] = useState(() => {
     try {
       const stored = localStorage.getItem("stardust-highscores");
@@ -54,6 +58,18 @@ const GameContainer = () => {
     onComboChange: (value = 0) => {
       setCombo(value);
       setBestCombo((prev) => Math.max(prev, value));
+      if (value >= 2) setComboFlashKey((n) => n + 1);
+    },
+    onPerfectWord: () => {
+      setPerfectFlashKey((n) => n + 1);
+      setPerfectVisible(true);
+      if (perfectHideRef.current) clearTimeout(perfectHideRef.current);
+      perfectHideRef.current = setTimeout(() => setPerfectVisible(false), 1200);
+    },
+    onPerfectReset: () => {
+      if (perfectHideRef.current) clearTimeout(perfectHideRef.current);
+      perfectHideRef.current = null;
+      setPerfectVisible(false);
     },
   });
 
@@ -64,6 +80,13 @@ const GameContainer = () => {
     setElapsedMs(0);
     setCombo(0);
     setBestCombo(0);
+    setComboFlashKey(0);
+    setPerfectFlashKey(0);
+    setPerfectVisible(false);
+    if (perfectHideRef.current) {
+      clearTimeout(perfectHideRef.current);
+      perfectHideRef.current = null;
+    }
     startRef.current = performance.now();
     setLoopSeed((n) => n + 1);
     setGameState("playing");
@@ -179,8 +202,23 @@ const GameContainer = () => {
 
       {gameState === "playing" && (
         <div className="game-layout">
+          <div className="game-heading">
+            <h2 className="title">Stardust Typer</h2>
+            <p className="subtitle">Type the falling words before they land.</p>
+          </div>
           <div className="left-panel" onClick={togglePause}>
-            <StarField key={loopSeed} stars={stars} activeId={activeId} />
+            <div className="stage-wrap">
+              <StarField key={loopSeed} stars={stars} activeId={activeId} />
+              {combo >= 2 && (
+                <div key={comboFlashKey} className="combo-badge">
+                  <span className="combo-label">Combo</span>
+                  <span className="combo-value">x{comboMultiplier.toFixed(1)}</span>
+                </div>
+              )}
+              <div key={perfectFlashKey} className={`perfect-badge${perfectVisible ? ' show' : ''}`}>
+                Perfect!
+              </div>
+            </div>
           </div>
           <div className="right-panel">
             <HUD

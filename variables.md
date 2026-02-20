@@ -10,13 +10,16 @@
 - elapsedMs: pause-aware elapsed time for the current run.
 - combo: current streak count; bestCombo tracks the max streak achieved in the run.
 - comboMultiplier / bestComboMultiplier: derived multipliers (1–3x) from current/best combo.
+- comboFlashKey: increments to retrigger the combo badge animation when streaks increase.
+- perfectFlashKey: increments to retrigger the perfect badge animation when a word is finished without mistakes.
+- perfectVisible: boolean controlling the Perfect badge visibility with an auto-hide timer.
 - startGame(): resets score/lives/time/combo and sets gameState to playing.
 - handleDifficultyChange(level): updates difficulty and restarts the game immediately when already playing.
 - highScores: top 5 entries persisted in localStorage and displayed in the HUD panel; now stores {score, difficulty, timeMs}.
 - paused: toggles pause/resume; disables loop/input when true.
 - loopSeed: incremented to reset loop state (stars/timers) when starting or changing difficulty.
 
--## src/hooks/useGameLoop.js
+## src/hooks/useGameLoop.js
 - DIFFICULTY_CONFIG: maps each difficulty to spawnInterval (ms), speed (px/sec), scoreMultiplier.
 - STAGE_HEIGHT: fixed fall distance (px) before a star counts as missed.
 - EXTRA_LIFE_STREAK: streak interval that triggers a heart pickup; pickups don’t cost lives when missed.
@@ -42,9 +45,10 @@
 - y: vertical position in px; increases downward.
 - typed: count of correctly typed characters.
 - type: 'word' (regular) or 'life' (heart pickup).
+- mistyped: boolean flag set when a wrong key was pressed for this word (used for perfect bonus).
 
 ## src/components/StarField.jsx
-- props.stars: array of star objects to render within the stage.
+- props.stars: array of star objects to render within the stage; stage is wrapped to host overlay elements like the combo and perfect badges.
 
 ## src/components/FallingStar.jsx
 - props.star: star object; uses `typed` to split rendered word into typed/rest segments.
