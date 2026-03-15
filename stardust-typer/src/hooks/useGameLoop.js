@@ -25,6 +25,7 @@ export default function useGameLoop({
 	resetSeed = 0,
 	onLifeLost,
 	onScoreGain,
+	onScoreEvent,
 	onLifeGain,
 	onComboChange,
 	onPerfectWord,
@@ -208,6 +209,7 @@ export default function useGameLoop({
 					if (onPerfectWord) onPerfectWord({ base: comboScore, bonus })
 				}
 				if (onScoreGain) onScoreGain(totalScore)
+				if (onScoreEvent) onScoreEvent({ amount: totalScore, x: target.x, y: target.y })
 				if (comboRef.current > 0 && comboRef.current % EXTRA_LIFE_STREAK === 0) {
 					spawnLifePickup()
 				}

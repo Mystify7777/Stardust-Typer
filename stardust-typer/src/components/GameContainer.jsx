@@ -26,6 +26,8 @@ const GameContainer = () => {
   const [wordPack, setWordPack] = useState("Core");
   const [showSettings, setShowSettings] = useState(false);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [floaters, setFloaters] = useState([]);
+  const [bursts, setBursts] = useState([]);
   const { playHit, playMiss, playLife, playLoseLife, playPause } = useAudio();
   const timerRef = useRef(null);
   const startRef = useRef(null);
@@ -88,10 +90,33 @@ const GameContainer = () => {
     },
     onMissKey: () => playMiss(),
     onWordComplete: () => playHit(),
+    onScoreEvent: ({ amount, x, y }) => {
+      const id = crypto.randomUUID();
+      setFloaters((prev) => [...prev, { id, amount, x, y, type: 'score' }]);
+      setTimeout(() => {
+        setFloaters((prev) => prev.filter((f) => f.id !== id));
+      }, 900);
+
+      const burstId = crypto.randomUUID();
+      const particles = Array.from({ length: 10 }).map(() => ({
+        dx: (Math.random() - 0.5) * 36,
+        dy: (Math.random() - 0.5) * 36,
+        scale: 0.6 + Math.random() * 0.6
+      }));
+      setBursts((prev) => [...prev, { id: burstId, x, y, particles }]);
+      setTimeout(() => {
+        setBursts((prev) => prev.filter((b) => b.id !== burstId));
+      }, 650);
+    },
     onMissCascade: (clearedCount = 0) => {
       if (clearedCount <= 0) return;
       setScore((prev) => {
         const penalty = Math.round(prev * 0.1 * clearedCount);
+        const id = crypto.randomUUID();
+        setFloaters((prevFloaters) => [...prevFloaters, { id, amount: -penalty, x: 50, y: 480, type: 'penalty' }]);
+        setTimeout(() => {
+          setFloaters((prevFloaters) => prevFloaters.filter((f) => f.id !== id));
+        }, 900);
         return Math.max(0, prev - penalty);
       });
     },
@@ -240,6 +265,26 @@ const GameContainer = () => {
           <div className="left-panel" onClick={togglePause}>
             <div className="stage-wrap">
               <StarField key={loopSeed} stars={stars} activeId={activeId} />
+              {bursts.map((b) => (
+                <div key={b.id} className="burst" style={{ left: `${b.x}%`, top: `${b.y}px` }}>
+                  {b.particles.map((p, idx) => (
+                    <span
+                      key={idx}
+                      className="burst-particle"
+                      style={{ transform: `translate(${p.dx}px, ${p.dy}px) scale(${p.scale})` }}
+                    />
+                  ))}
+                </div>
+              ))}
+              {floaters.map((f) => (
+                <div
+                  key={f.id}
+                  className={`floater${f.type === 'penalty' ? ' penalty' : ''}`}
+                  style={{ left: `${f.x}%`, top: `${f.y}px` }}
+                >
+                  {f.type === 'penalty' ? `-${f.amount}` : `+${f.amount}`}
+                </div>
+              ))}
               {combo >= 2 && (
                 <div key={comboFlashKey} className="combo-badge">
                   <span className="combo-label">Combo</span>

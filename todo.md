@@ -57,7 +57,7 @@ P3 – Optional / advanced
 
 [x] Combo animation
 
-[ ] Floating score indicators
+[x] Floating score indicators
 
 [ ] Improve Game Over screen
 

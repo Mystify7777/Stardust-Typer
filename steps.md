@@ -45,3 +45,4 @@
 - Added progressive difficulty scaling: spawn interval decreases and fall speed increases over time (capped at 2x after ~60s), resetting on restart/difficulty change.
 - Added Settings modal (difficulty + stub word-pack selection) and Leaderboard modal (local highscores with player names); GameOver now collects player name and links to leaderboard.
 - Wired word packs into spawning via `getWordForPackAndDifficulty`; Settings modal now drives pack selection (Core, Programming, Cyberpunk, Anime).
+- Added floating score/penalty popups rendered over the stage using onScoreEvent and miss-cascade events.

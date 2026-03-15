@@ -92,7 +92,7 @@ Features:
 - Saved in **localStorage**
 - Includes difficulty, survival time, and player name
 - Displayed in HUD, Game Over, and Leaderboard modal
-- Lightweight audio cues for hit/miss/life/pause events via Web Audio
+- Lightweight audio cues for hit/miss/life/pause events via Web Audio and floating score/penalty cues on screen
 - Lightweight audio cues for hit/miss/life/pause events via Web Audio
 
 ---

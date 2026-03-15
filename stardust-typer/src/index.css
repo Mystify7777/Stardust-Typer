@@ -36,6 +36,9 @@ html,body,#root{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;bac
 .stage{
   position:relative;
   width:100%;
+  border-color:rgba(255,140,140,0.6);
+  box-shadow:0 10px 20px rgba(0,0,0,0.35), 0 0 14px rgba(255,140,140,0.28);
+}
   height:600px;
   border-radius:12px;
   overflow:hidden;
@@ -153,6 +156,65 @@ html,body,#root{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;bac
 .perfect-badge.show{
   opacity:1;
   transform:translateY(0) scale(1);
+}
+
+.floater{
+  position:absolute;
+  transform:translate(-50%, -20px);
+  background:rgba(255,255,255,0.12);
+  color:#e8fff2;
+  padding:6px 10px;
+  border-radius:10px;
+  font-weight:800;
+  letter-spacing:0.4px;
+  box-shadow:0 10px 20px rgba(0,0,0,0.35), 0 0 14px rgba(255,255,255,0.25);
+  animation:floaterUp 950ms ease forwards;
+  pointer-events:none;
+  border:1px solid rgba(255,255,255,0.16);
+}
+
+.floater.penalty{
+  background:rgba(255,120,120,0.18);
+  color:#ffdede;
+  border-color:rgba(255,140,140,0.6);
+  box-shadow:0 10px 20px rgba(0,0,0,0.35), 0 0 14px rgba(255,140,140,0.28);
+}
+
+.burst {
+  position: absolute;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.burst-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #fff, #facc15);
+  animation: burstPop 0.6s ease-out forwards;
+  opacity: 0.9;
+}
+
+@keyframes burstPop {
+  0% {
+    transform: scale(0.2);
+    opacity: 1;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+}
+
+@keyframes floaterUp{
+  0%{opacity:0; transform:translate(-50%, 10px) scale(0.9);}
+  20%{opacity:1; transform:translate(-50%, -6px) scale(1.02);}
+  100%{opacity:0; transform:translate(-50%, -40px) scale(0.98);}
 }
 
 .star .typed{ color: #fff; background: rgba(0,0,0,0.25); padding:2px 4px; border-radius:3px; margin-right:2px; }
