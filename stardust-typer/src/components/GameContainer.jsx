@@ -205,18 +205,22 @@ const GameContainer = () => {
     return () => stopTimer();
   }, [gameState, paused]);
 
-  // When the game ends, record high scores (top 5) locally
+  // When the game ends, record high scores (top 5) locally. Allow name edits while on the gameover screen to update the entry.
   useEffect(() => {
     if (gameState !== "gameover") return;
     setHighScores((prev) => {
       const entry = { score, difficulty, timeMs: elapsedMs, name: playerName || "Guest" };
-      const next = [...prev, entry]
+      // Replace any entry for this exact run (same score/difficulty/time) so name edits apply.
+      const withoutCurrentRun = prev.filter(
+        (e) => !(e.score === score && e.difficulty === difficulty && e.timeMs === elapsedMs)
+      );
+      const next = [...withoutCurrentRun, entry]
         .sort((a, b) => b.score - a.score)
         .slice(0, 5);
       try { localStorage.setItem("stardust-highscores", JSON.stringify(next)); } catch (e) {}
       return next;
     });
-  }, [gameState, score, difficulty]);
+  }, [gameState, score, difficulty, elapsedMs, playerName]);
 
   useEffect(() => {
     if (lives <= 0) {
