@@ -32,7 +32,7 @@ P3 – Optional / advanced
 
 [x] Manual target switching (arrow keys / tab)
 
-[ ] Progressive difficulty scaling
+[x] Progressive difficulty scaling
 
 [ ] Word pack system
 

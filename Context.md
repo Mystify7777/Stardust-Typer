@@ -51,7 +51,7 @@ The game ends when the player runs out of lives.
 
 ## Game Loop
 
-- Difficulty-based spawn timing
+- Difficulty-based spawn timing with progressive scaling (faster spawns/speed over time, capped)
 - Falling star movement
 - Combo system (capped at 3x)
 - Perfect-word scoring bonus

@@ -13,6 +13,8 @@ const COMBO_INCREMENT = 0.1 // +10% per word up to cap
 const PERFECT_BONUS_FACTOR = 0.5 // +50% of base word score when no mistakes
 
 const STAGE_HEIGHT = 600
+const MAX_SCALE = 2 // cap progressive scaling to avoid runaway speed/spawn
+const SCALE_TIME_DENOM = 60 // seconds to reach 2x difficulty
 
 // Handles spawning/moving stars and typing interaction while the game is running.
 export default function useGameLoop({
@@ -37,6 +39,7 @@ export default function useGameLoop({
 	const lastFrameRef = useRef(performance.now())
 	const starsRef = useRef([])
 	const comboRef = useRef(0)
+	const elapsedRef = useRef(0)
 
 	const reportCombo = (value) => {
 		comboRef.current = value
@@ -75,11 +78,16 @@ export default function useGameLoop({
 		const cfg = DIFFICULTY_CONFIG[difficulty] || DIFFICULTY_CONFIG.Normal
 		const delta = (now - lastFrameRef.current) / 1000
 		lastFrameRef.current = now
+		elapsedRef.current += delta
+
+		const scale = Math.min(1 + elapsedRef.current / SCALE_TIME_DENOM, MAX_SCALE)
+		const scaledInterval = cfg.spawnInterval / scale
+		const scaledSpeed = cfg.speed * scale
 
 		// Move stars and collect any that fell past the stage bottom.
 		let lost = 0
 		let moved = starsRef.current
-			.map((s) => ({ ...s, y: s.y + cfg.speed * delta }))
+			.map((s) => ({ ...s, y: s.y + scaledSpeed * delta }))
 			.filter((s) => {
 				const alive = s.y < STAGE_HEIGHT
 				if (!alive && s.type === 'word') lost += 1
@@ -101,7 +109,7 @@ export default function useGameLoop({
 		syncStars(moved)
 
 		// Spawn new stars on interval.
-		if (now - lastSpawnRef.current >= cfg.spawnInterval) {
+		if (now - lastSpawnRef.current >= scaledInterval) {
 			spawnStar()
 			lastSpawnRef.current = now
 		}
@@ -117,6 +125,7 @@ export default function useGameLoop({
 				syncStars([])
 				setActiveId(null)
 				comboRef.current = 0
+				elapsedRef.current = 0
 			}
 			return
 		}
@@ -124,6 +133,7 @@ export default function useGameLoop({
 		// Reset loop state when starting or when resetSeed changes.
 		lastSpawnRef.current = performance.now()
 		lastFrameRef.current = performance.now()
+		elapsedRef.current = 0
 		syncStars([])
 		setActiveId(null)
 		reportCombo(0)

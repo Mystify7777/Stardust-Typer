@@ -3,7 +3,7 @@
 Fast-paced typing game (React 19 + Vite): type the words on falling stars before they hit the ground. Difficulty-based pacing, streak combos, perfect-word bonuses, heart pickups, pause/resume, manual target switching, lightweight audio cues, and local highscores.
 
 ## Status (MVP phase)
-- Game loop: difficulty-tuned spawn/move, keyboard typing, scoring with up to 3x combo, perfect-word bonus, streak-based heart drops, pause/resume, and clean resets on restart/difficulty change.
+- Game loop: difficulty-tuned spawn/move, progressive scaling over time (spawn rate + speed), keyboard typing, scoring with up to 3x combo, perfect-word bonus, streak-based heart drops, pause/resume, and clean resets on restart/difficulty change.
 - UI/UX: stage + HUD columns, styled menu/gameover panels, target highlighting, combo/perfect badges, active difficulty buttons, live timer/score/lives/combo in HUD, in-play heading/subtitle, manual target switching (arrow keys).
 - Audio: lightweight Web Audio tones for hits, misses, life gain, life loss, and pause toggles.
 - Persistence: local top-5 highscores (difficulty + time) shown in HUD and GameOver; stars clear via loopSeed when restarting.
