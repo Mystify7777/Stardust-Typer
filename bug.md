@@ -11,4 +11,4 @@
 - Location: src/components/GameContainer.jsx (combo tracking)
 - Issue: Best combo displayed incorrectly (reset on leaving play or not recorded); game-over modal sometimes showed lower combo than achieved.
 - Cause: Only current combo was tracked; it reset when leaving play and was passed directly to GameOver without persisting the max.
-- Fix: Added bestCombo state with derived bestComboMultiplier; onComboChange now updates both current and best; best values passed to GameOver modal; current combo no longer cleared on game-state exit.*** End Patch
+- Fix: Added bestCombo state with derived bestComboMultiplier; onComboChange now updates both current and best; best values passed to GameOver modal; current combo no longer cleared on game-state exit.
