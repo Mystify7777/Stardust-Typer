@@ -1,12 +1,13 @@
 # Stardust Typer
 
-Fast-paced typing game (React 19 + Vite): type the words on falling stars before they hit the ground. Difficulty-based pacing, streak combos, perfect-word bonuses, heart pickups, pause/resume, and local highscores.
+Fast-paced typing game (React 19 + Vite): type the words on falling stars before they hit the ground. Difficulty-based pacing, streak combos, perfect-word bonuses, heart pickups, pause/resume, manual target switching, lightweight audio cues, and local highscores.
 
 ## Status (MVP phase)
 - Game loop: difficulty-tuned spawn/move, keyboard typing, scoring with up to 3x combo, perfect-word bonus, streak-based heart drops, pause/resume, and clean resets on restart/difficulty change.
-- UI/UX: stage + HUD columns, styled menu/gameover panels, target highlighting, combo/perfect badges, active difficulty buttons, live timer/score/lives/combo in HUD, in-play heading/subtitle.
+- UI/UX: stage + HUD columns, styled menu/gameover panels, target highlighting, combo/perfect badges, active difficulty buttons, live timer/score/lives/combo in HUD, in-play heading/subtitle, manual target switching (arrow keys).
+- Audio: lightweight Web Audio tones for hits, misses, life gain, life loss, and pause toggles.
 - Persistence: local top-5 highscores (difficulty + time) shown in HUD and GameOver; stars clear via loopSeed when restarting.
-- Open work (see todo.md): add hit/miss audio/visual feedback; stub leaderboard UI with mock/local data; settings/leaderboard UI parity; split logic into `useStars`/`useKeyboardInput`/`useAudio`; add manual target switching via arrows.
+- Open work (see todo.md): stub leaderboard UI with mock/local data; settings/leaderboard UI parity; split logic into `useStars`/`useKeyboardInput`/`useAudio`; add progressive difficulty scaling, word packs, visual polish, and backend leaderboard.
 
 ## Controls and gameplay
 - Start typing to lock the nearest star and advance its word.
@@ -14,12 +15,16 @@ Fast-paced typing game (React 19 + Vite): type the words on falling stars before
 - Missed key: breaks perfect for the current word and streak.
 - Lives: lose one when a star reaches the ground; game ends at 0.
 - Pause/resume: spacebar or stage click.
+- Manual targeting: Arrow Up/Down cycles the active star.
 - Difficulties: Easy/Normal/Hard adjust spawn interval, fall speed, and score multiplier using difficulty-based word lists.
 
 ## Run it
 - Install: `npm install`
 - Dev: `npm run dev`
 - Build: `npm run build`
+
+## Live demo
+- https://stardusttyper.netlify.app/
 
 ## Project layout (key paths)
 ```bash

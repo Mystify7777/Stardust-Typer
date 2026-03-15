@@ -15,7 +15,20 @@ const PERFECT_BONUS_FACTOR = 0.5 // +50% of base word score when no mistakes
 const STAGE_HEIGHT = 600
 
 // Handles spawning/moving stars and typing interaction while the game is running.
-export default function useGameLoop({ isRunning, paused = false, difficulty, resetSeed = 0, onLifeLost, onScoreGain, onLifeGain, onComboChange, onPerfectWord, onPerfectReset }) {
+export default function useGameLoop({
+	isRunning,
+	paused = false,
+	difficulty,
+	resetSeed = 0,
+	onLifeLost,
+	onScoreGain,
+	onLifeGain,
+	onComboChange,
+	onPerfectWord,
+	onPerfectReset,
+	onMissKey,
+	onWordComplete
+}) {
 	const [stars, setStars] = useState([])
 	const [activeId, setActiveId] = useState(null)
 	const rafRef = useRef(null)
@@ -116,20 +129,39 @@ export default function useGameLoop({ isRunning, paused = false, difficulty, res
 
 		const handleKeyDown = (e) => {
 			const key = e.key.toLowerCase()
+
+			if (key === 'arrowup' || key === 'arrowdown') {
+				e.preventDefault()
+				const candidates = starsRef.current.filter((s) => s.typed < s.word.length)
+				if (candidates.length === 0) return
+				const sorted = [...candidates].sort((a, b) => b.y - a.y) // descending by y
+				const currentIdx = sorted.findIndex((s) => s.id === activeId)
+				if (key === 'arrowdown') {
+					const next = sorted[(currentIdx + 1 + sorted.length) % sorted.length]
+					setActiveId(next.id)
+					return
+				}
+				const next = sorted[(currentIdx - 1 + sorted.length) % sorted.length]
+				setActiveId(next.id)
+				return
+			}
+
 			if (key.length !== 1 || key < 'a' || key > 'z') return
 
 			const cfg = DIFFICULTY_CONFIG[difficulty] || DIFFICULTY_CONFIG.Normal
 			const candidates = starsRef.current.filter((s) => s.typed < s.word.length)
 			if (candidates.length === 0) return
 
-			// Focus the lowest star (closest to failing) to keep tension high.
-			const target = candidates.reduce((best, s) => (s.y > best.y ? s : best), candidates[0])
+			// Focus the lowest star (closest to failing) unless a manual selection exists.
+			const fallback = candidates.reduce((best, s) => (s.y > best.y ? s : best), candidates[0])
+			const target = candidates.find((s) => s.id === activeId) || fallback
 			setActiveId(target.id)
 			const expectedChar = target.word[target.typed]
 			if (key !== expectedChar.toLowerCase()) {
 				// Mark this word as no longer perfect if a wrong key was pressed.
 				syncStars((prev) => prev.map((s) => (s.id === target.id ? { ...s, mistyped: true } : s)))
 				if (onPerfectReset) onPerfectReset()
+				if (onMissKey) onMissKey()
 				return
 			}
 
@@ -160,6 +192,7 @@ export default function useGameLoop({ isRunning, paused = false, difficulty, res
 				}
 				syncStars((prev) => prev.filter((s) => s.id !== target.id))
 				setActiveId(null)
+				if (onWordComplete) onWordComplete()
 				return
 			}
 
@@ -168,7 +201,7 @@ export default function useGameLoop({ isRunning, paused = false, difficulty, res
 
 		window.addEventListener('keydown', handleKeyDown)
 		return () => window.removeEventListener('keydown', handleKeyDown)
-	}, [isRunning, difficulty, onScoreGain])
+	}, [isRunning, difficulty, onScoreGain, activeId, onMissKey, onWordComplete, onPerfectReset, onPerfectWord])
 
 	return { stars, activeId }
 }

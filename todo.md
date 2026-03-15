@@ -30,7 +30,7 @@ P3 – Optional / advanced
 
 ## P1 – Gameplay Features
 
-[ ] Manual target switching (arrow keys / tab)
+[x] Manual target switching (arrow keys / tab)
 
 [ ] Progressive difficulty scaling
 
@@ -51,7 +51,7 @@ P3 – Optional / advanced
 
 ## P2 – UX Improvements
 
-[ ] Implement audio system
+[x] Implement audio system
 
 [ ] Particle burst when star destroyed
 
@@ -100,4 +100,4 @@ P3 – Optional / advanced
 
 [ ] Add gameplay screenshots
 
-[ ] Add live demo link
+[x] Add live demo link

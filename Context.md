@@ -40,6 +40,7 @@ Players must type the word associated with a star.
 - **Heart drops** that restore lives
 - **Pause / resume**
 - **Difficulty selection**
+- **Manual target switching** (arrow keys)
 
 The game ends when the player runs out of lives.
 
@@ -69,6 +70,7 @@ The interface currently includes:
 - Combo indicator
 - Perfect bonus badge
 - Difficulty buttons
+- Manual target switching (arrow keys)
 - Live display of:
   - score
   - time
@@ -87,6 +89,7 @@ Features:
 - Saved in **localStorage**
 - Includes difficulty and survival time
 - Displayed in HUD and Game Over screen
+- Lightweight audio cues for hit/miss/life/pause events via Web Audio
 
 ---
 

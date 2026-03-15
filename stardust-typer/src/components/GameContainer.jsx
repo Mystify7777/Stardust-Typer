@@ -4,6 +4,7 @@ import HUD from "./HUD";
 import GameOverModal from "./GameOverModal";
 import useGameLoop from "../hooks/useGameLoop";
 import { formatTime } from "../utils/formatTime";
+import useAudio from "../hooks/useAudio";
 
 const GameContainer = () => {
   const MAX_LIVES = 8;
@@ -19,6 +20,7 @@ const GameContainer = () => {
   const [comboFlashKey, setComboFlashKey] = useState(0);
   const [perfectFlashKey, setPerfectFlashKey] = useState(0);
   const [perfectVisible, setPerfectVisible] = useState(false);
+  const { playHit, playMiss, playLife, playLoseLife, playPause } = useAudio();
   const timerRef = useRef(null);
   const startRef = useRef(null);
   const pauseRef = useRef(null);
@@ -52,9 +54,15 @@ const GameContainer = () => {
     paused,
     difficulty,
     resetSeed: loopSeed,
-    onLifeLost: (lost = 1) => setLives((prev) => prev - lost),
+    onLifeLost: (lost = 1) => {
+      playLoseLife();
+      setLives((prev) => prev - lost);
+    },
     onScoreGain: (gained = 0) => setScore((prev) => prev + gained),
-    onLifeGain: (gained = 1) => setLives((prev) => Math.min(MAX_LIVES, prev + gained)),
+    onLifeGain: (gained = 1) => {
+      playLife();
+      setLives((prev) => Math.min(MAX_LIVES, prev + gained));
+    },
     onComboChange: (value = 0) => {
       setCombo(value);
       setBestCombo((prev) => Math.max(prev, value));
@@ -71,6 +79,8 @@ const GameContainer = () => {
       perfectHideRef.current = null;
       setPerfectVisible(false);
     },
+    onMissKey: () => playMiss(),
+    onWordComplete: () => playHit(),
   });
 
   const startGame = () => {
@@ -109,6 +119,7 @@ const GameContainer = () => {
 
   const togglePause = () => {
     if (gameState !== "playing") return;
+    playPause();
     setPaused((p) => !p);
   };
 

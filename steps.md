@@ -39,3 +39,5 @@
 - Implemented perfect-word bonus: wrong-key presses flag the word; clean words grant bonus points and trigger a Perfect badge overlay.
 - Improved perfect badge behavior: clears on wrong keys, re-flashes per perfect word, and auto-hides after a short duration.
 - Rewrote Context.md and README.md with current gameplay, status, and roadmap; replaced todo.md with structured P0–P3 tracker; refreshed project_structure.md to match the current repo layout.
+- Added Web Audio cues (hit, miss, life gain, life loss, pause toggle) via new useAudio hook; wired into GameContainer/useGameLoop.
+- Added manual target switching with arrow keys in useGameLoop (manual selection takes precedence; falls back to lowest star when unset).
