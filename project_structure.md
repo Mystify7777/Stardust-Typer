@@ -15,6 +15,8 @@ stardust-typer/
 │   │   ├── GameContainer.jsx
 │   │   ├── GameOverModal.jsx
 │   │   ├── HUD.jsx
+│   │   ├── LeaderboardModal.jsx
+│   │   ├── SettingsModal.jsx
 │   │   └── StarField.jsx
 │   ├── hooks/
 │   │   ├── useAudio.js
@@ -29,5 +31,5 @@ stardust-typer/
 ```
 
 Notes
-- Planned additions: Leaderboard/Settings components, `useStars`/`useKeyboardInput` hooks, scoring/leaderboard helpers under `utils/`.
+- Planned additions: `useStars`/`useKeyboardInput` hooks, scoring/leaderboard helpers under `utils/`.
 

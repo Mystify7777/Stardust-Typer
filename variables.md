@@ -5,6 +5,7 @@
 - score: numeric points earned; increments on completed words.
 - lives: remaining chances; decrements when a star escapes; reaching 0 triggers game over (capped at MAX_LIVES on gains).
 - difficulty: "Easy" | "Normal" | "Hard"; influences spawn rate, speed, and score multiplier.
+- wordPack: selected word pack label (stubbed for now; not yet wired to loader).
 - stars: array from `useGameLoop`; active falling stars rendered in StarField.
 - activeId: id of the currently targeted star for highlighting.
 - elapsedMs: pause-aware elapsed time for the current run.
@@ -13,6 +14,8 @@
 - comboFlashKey: increments to retrigger the combo badge animation when streaks increase.
 - perfectFlashKey: increments to retrigger the perfect badge animation when a word is finished without mistakes.
 - perfectVisible: boolean controlling the Perfect badge visibility with an auto-hide timer.
+- playerName: captured on Game Over and saved with high scores; defaults to "Guest".
+- showSettings / showLeaderboard: modal visibility flags for settings and leaderboard.
 - startGame(): resets score/lives/time/combo and sets gameState to playing.
 - handleDifficultyChange(level): updates difficulty and restarts the game immediately when already playing.
 - highScores: top 5 entries persisted in localStorage and displayed in the HUD panel; now stores {score, difficulty, timeMs}.

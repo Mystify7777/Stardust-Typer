@@ -41,9 +41,9 @@ P3 – Optional / advanced
 - difficulty selection
 - word pack selection
 
-[ ] Leaderboard UI stub
+[x] Leaderboard UI stub
 
-[ ] Player name input on Game Over
+[x] Player name input on Game Over
 
 [x] Miss-handling UX: when a word is missed, clear all stars in the lower half of the stage with a score penalty (no extra life loss beyond the missed star) — implemented with 10% score penalty per cleared star.
 

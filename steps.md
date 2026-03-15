@@ -43,3 +43,4 @@
 - Added manual target switching with arrow keys in useGameLoop (manual selection takes precedence; falls back to lowest star when unset).
 - Added miss-handling cascade: when a word is missed, clear lower-half stars with a 10% score penalty per cleared star (no extra life loss beyond the missed star).
 - Added progressive difficulty scaling: spawn interval decreases and fall speed increases over time (capped at 2x after ~60s), resetting on restart/difficulty change.
+- Added Settings modal (difficulty + stub word-pack selection) and Leaderboard modal (local highscores with player names); GameOver now collects player name and links to leaderboard.

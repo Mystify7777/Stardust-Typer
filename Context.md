@@ -72,6 +72,8 @@ The interface currently includes:
 - Perfect bonus badge
 - Difficulty buttons
 - Manual target switching (arrow keys)
+- Settings modal (difficulty + word-pack stub)
+- Leaderboard modal (local scores with player names)
 - Live display of:
   - score
   - time
@@ -88,8 +90,9 @@ Features:
 
 - **Top 5 highscores**
 - Saved in **localStorage**
-- Includes difficulty and survival time
-- Displayed in HUD and Game Over screen
+- Includes difficulty, survival time, and player name
+- Displayed in HUD, Game Over, and Leaderboard modal
+- Lightweight audio cues for hit/miss/life/pause events via Web Audio
 - Lightweight audio cues for hit/miss/life/pause events via Web Audio
 
 ---

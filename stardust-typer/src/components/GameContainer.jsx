@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import StarField from "./StarField";
 import HUD from "./HUD";
 import GameOverModal from "./GameOverModal";
+import SettingsModal from "./SettingsModal";
+import LeaderboardModal from "./LeaderboardModal";
 import useGameLoop from "../hooks/useGameLoop";
 import { formatTime } from "../utils/formatTime";
 import useAudio from "../hooks/useAudio";
@@ -20,6 +22,10 @@ const GameContainer = () => {
   const [comboFlashKey, setComboFlashKey] = useState(0);
   const [perfectFlashKey, setPerfectFlashKey] = useState(0);
   const [perfectVisible, setPerfectVisible] = useState(false);
+  const [playerName, setPlayerName] = useState("Guest");
+  const [wordPack, setWordPack] = useState("Core");
+  const [showSettings, setShowSettings] = useState(false);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
   const { playHit, playMiss, playLife, playLoseLife, playPause } = useAudio();
   const timerRef = useRef(null);
   const startRef = useRef(null);
@@ -130,6 +136,12 @@ const GameContainer = () => {
     setPaused((p) => !p);
   };
 
+  const openLeaderboard = () => setShowLeaderboard(true);
+  const closeLeaderboard = () => setShowLeaderboard(false);
+
+  const openSettings = () => setShowSettings(true);
+  const closeSettings = () => setShowSettings(false);
+
   const stopTimer = () => {
     if (timerRef.current) cancelAnimationFrame(timerRef.current);
     timerRef.current = null;
@@ -171,7 +183,7 @@ const GameContainer = () => {
   useEffect(() => {
     if (gameState !== "gameover") return;
     setHighScores((prev) => {
-      const entry = { score, difficulty, timeMs: elapsedMs };
+      const entry = { score, difficulty, timeMs: elapsedMs, name: playerName || "Guest" };
       const next = [...prev, entry]
         .sort((a, b) => b.score - a.score)
         .slice(0, 5);
@@ -243,7 +255,10 @@ const GameContainer = () => {
               score={score}
               lives={lives}
               difficulty={difficulty}
+              wordPack={wordPack}
               onChangeDifficulty={handleDifficultyChange}
+              onOpenSettings={openSettings}
+              onOpenLeaderboard={openLeaderboard}
               paused={paused}
               elapsedMs={elapsedMs}
               combo={combo}
@@ -278,8 +293,28 @@ const GameContainer = () => {
           combo={bestCombo}
           comboMultiplier={bestComboMultiplier}
           highScores={highScores}
+          playerName={playerName}
+          onChangePlayerName={setPlayerName}
+          onOpenLeaderboard={openLeaderboard}
           onRestart={startGame}
           onMenu={() => setGameState("menu")}
+        />
+      )}
+
+      {showSettings && (
+        <SettingsModal
+          difficulty={difficulty}
+          onChangeDifficulty={handleDifficultyChange}
+          wordPack={wordPack}
+          onChangeWordPack={setWordPack}
+          onClose={closeSettings}
+        />
+      )}
+
+      {showLeaderboard && (
+        <LeaderboardModal
+          highScores={highScores}
+          onClose={closeLeaderboard}
         />
       )}
     </div>
