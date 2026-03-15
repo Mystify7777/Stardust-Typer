@@ -58,7 +58,7 @@ const GameContainer = () => {
   }, [bestCombo]);
 
   const { stars, activeId } = useGameLoop({
-    isRunning: gameState === "playing" && !paused,
+    isRunning: gameState === "playing",
     paused,
     difficulty,
     wordPack,
