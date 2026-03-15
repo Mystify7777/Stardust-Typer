@@ -27,7 +27,8 @@ export default function useGameLoop({
 	onPerfectWord,
 	onPerfectReset,
 	onMissKey,
-	onWordComplete
+	onWordComplete,
+	onMissCascade
 }) {
 	const [stars, setStars] = useState([])
 	const [activeId, setActiveId] = useState(null)
@@ -77,18 +78,27 @@ export default function useGameLoop({
 
 		// Move stars and collect any that fell past the stage bottom.
 		let lost = 0
-		const moved = starsRef.current
+		let moved = starsRef.current
 			.map((s) => ({ ...s, y: s.y + cfg.speed * delta }))
 			.filter((s) => {
 				const alive = s.y < STAGE_HEIGHT
 				if (!alive && s.type === 'word') lost += 1
 				return alive
 			})
-		syncStars(moved)
+
 		if (lost > 0) {
 			reportCombo(0)
+			setActiveId(null)
 			if (onLifeLost) onLifeLost(lost)
+			const clearedLower = moved.filter((s) => s.type === 'word' && s.y >= STAGE_HEIGHT / 2)
+			if (clearedLower.length > 0) {
+				const clearedIds = new Set(clearedLower.map((s) => s.id))
+				moved = moved.filter((s) => !clearedIds.has(s.id))
+				if (onMissCascade) onMissCascade(clearedLower.length)
+			}
 		}
+
+		syncStars(moved)
 
 		// Spawn new stars on interval.
 		if (now - lastSpawnRef.current >= cfg.spawnInterval) {

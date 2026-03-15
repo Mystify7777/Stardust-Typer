@@ -32,6 +32,7 @@ Players must type the word associated with a star.
 ### If a star reaches the bottom
 
 - The player loses a life
+- Lower-half stars are cleared with a score penalty (10% of current score per cleared star), no additional life loss beyond the missed star
 
 ### Additional mechanics
 

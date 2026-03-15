@@ -13,6 +13,7 @@ Fast-paced typing game (React 19 + Vite): type the words on falling stars before
 - Start typing to lock the nearest star and advance its word.
 - Finish a word: gain points (with combo and perfect-word bonuses); streaks can drop a heart if lives < 3.
 - Missed key: breaks perfect for the current word and streak.
+- Missed word: costs a life and triggers a blast that clears lower-half stars with a 10% score penalty per cleared star (no extra life loss beyond the missed one).
 - Lives: lose one when a star reaches the ground; game ends at 0.
 - Pause/resume: spacebar or stage click.
 - Manual targeting: Arrow Up/Down cycles the active star.

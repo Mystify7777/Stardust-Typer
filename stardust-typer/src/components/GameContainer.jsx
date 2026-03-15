@@ -81,6 +81,13 @@ const GameContainer = () => {
     },
     onMissKey: () => playMiss(),
     onWordComplete: () => playHit(),
+    onMissCascade: (clearedCount = 0) => {
+      if (clearedCount <= 0) return;
+      setScore((prev) => {
+        const penalty = Math.round(prev * 0.1 * clearedCount);
+        return Math.max(0, prev - penalty);
+      });
+    },
   });
 
   const startGame = () => {

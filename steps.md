@@ -41,3 +41,4 @@
 - Rewrote Context.md and README.md with current gameplay, status, and roadmap; replaced todo.md with structured P0–P3 tracker; refreshed project_structure.md to match the current repo layout.
 - Added Web Audio cues (hit, miss, life gain, life loss, pause toggle) via new useAudio hook; wired into GameContainer/useGameLoop.
 - Added manual target switching with arrow keys in useGameLoop (manual selection takes precedence; falls back to lowest star when unset).
+- Added miss-handling cascade: when a word is missed, clear lower-half stars with a 10% score penalty per cleared star (no extra life loss beyond the missed star).

@@ -45,7 +45,7 @@ P3 – Optional / advanced
 
 [ ] Player name input on Game Over
 
-[ ] Miss-handling UX: when a word is missed, clear all stars in the lower half of the stage with a score penalty (no extra life loss beyond the missed star) — confirm exact penalty and positioning rules before implementation.
+[x] Miss-handling UX: when a word is missed, clear all stars in the lower half of the stage with a score penalty (no extra life loss beyond the missed star) — implemented with 10% score penalty per cleared star.
 
 ---
 
