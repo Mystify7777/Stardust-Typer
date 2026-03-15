@@ -4,7 +4,7 @@ Fast-paced typing game (React 19 + Vite): type the words on falling stars before
 
 ## Status (MVP phase)
 - Game loop: difficulty-tuned spawn/move, progressive scaling over time (spawn rate + speed), keyboard typing, scoring with up to 3x combo, perfect-word bonus, streak-based heart drops, pause/resume, and clean resets on restart/difficulty change.
-- UI/UX: stage + HUD columns, styled menu/gameover panels, target highlighting, combo/perfect badges, active difficulty buttons, live timer/score/lives/combo in HUD, in-play heading/subtitle, manual target switching (arrow keys), Settings modal (difficulty + word-pack stub), Leaderboard modal with player names, and name entry on Game Over.
+- UI/UX: stage + HUD columns, styled menu/gameover panels, target highlighting, combo/perfect badges, active difficulty buttons, live timer/score/lives/combo in HUD, in-play heading/subtitle, manual target switching (arrow keys), Settings modal (difficulty + word packs), Leaderboard modal with player names, and name entry on Game Over.
 - Audio: lightweight Web Audio tones for hits, misses, life gain, life loss, and pause toggles.
 - Persistence: local top-5 highscores (difficulty + time + player name) shown in HUD/GameOver/Leaderboard; stars clear via loopSeed when restarting.
 - Open work (see todo.md): hook word packs into loader, float-score/particle feedback, backend/remote leaderboard, richer settings, and hook-splitting (`useStars`, `useKeyboardInput`, `useScoring`).
@@ -18,7 +18,7 @@ Fast-paced typing game (React 19 + Vite): type the words on falling stars before
 - Pause/resume: spacebar or stage click.
 - Manual targeting: Arrow Up/Down cycles the active star.
 - Difficulties: Easy/Normal/Hard adjust spawn interval, fall speed, and score multiplier using difficulty-based word lists.
-- Settings: open Settings for difficulty and (stub) word-pack selection; open Leaderboard to view local top scores with player names.
+- Settings: open Settings for difficulty and word-pack selection; open Leaderboard to view local top scores with player names.
 
 ## Run it
 - Install: `npm install`

@@ -34,9 +34,9 @@ P3 – Optional / advanced
 
 [x] Progressive difficulty scaling
 
-[ ] Word pack system
+[x] Word pack system
 
-[ ] Settings modal
+[x] Settings modal
 
 - difficulty selection
 - word pack selection

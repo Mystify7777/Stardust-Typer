@@ -5,7 +5,7 @@
 - score: numeric points earned; increments on completed words.
 - lives: remaining chances; decrements when a star escapes; reaching 0 triggers game over (capped at MAX_LIVES on gains).
 - difficulty: "Easy" | "Normal" | "Hard"; influences spawn rate, speed, and score multiplier.
-- wordPack: selected word pack label (stubbed for now; not yet wired to loader).
+- wordPack: selected word pack label (Core/Programming/Cyberpunk/Anime) used for spawning.
 - stars: array from `useGameLoop`; active falling stars rendered in StarField.
 - activeId: id of the currently targeted star for highlighting.
 - elapsedMs: pause-aware elapsed time for the current run.
@@ -18,7 +18,7 @@
 - showSettings / showLeaderboard: modal visibility flags for settings and leaderboard.
 - startGame(): resets score/lives/time/combo and sets gameState to playing.
 - handleDifficultyChange(level): updates difficulty and restarts the game immediately when already playing.
-- highScores: top 5 entries persisted in localStorage and displayed in the HUD panel; now stores {score, difficulty, timeMs}.
+- highScores: top 5 entries persisted in localStorage and displayed in the HUD panel; stores {score, difficulty, timeMs, name}.
 - paused: toggles pause/resume; disables loop/input when true.
 - loopSeed: incremented to reset loop state (stars/timers) when starting or changing difficulty.
 
@@ -37,8 +37,8 @@
 - spawnLifePickup(): spawns a heart pickup (type 'life') if none is present.
 - syncStars(): helper to update stars state + ref together.
 - step(): per-frame updater; moves stars, removes escaped ones, spawns new ones, calls onLifeLost; resets combo on misses.
-- keyboard handler: listens for a–z keys, targets the lowest active star, advances typed progress, removes completed stars, calls onScoreGain, awards lives on life pickups, spawns life after streak thresholds, and applies combo multiplier to score.
-- getWordForDifficulty(difficulty): returns a random word from the corresponding pool.
+- keyboard handler: listens for a–z keys, targets the lowest active star (or manual selection), advances typed progress, removes completed stars, calls onScoreGain, awards lives on life pickups, spawns life after streak thresholds, applies combo multiplier to score, and supports manual target cycling with arrow keys.
+- getWordForPackAndDifficulty(pack, difficulty): returns a random word from the selected pack/difficulty pool.
 - activeId: exposed for current target highlighting.
 
 ### Star object shape

@@ -136,7 +136,7 @@ Responsible for:
 
 ---
 
-### `useStars`
+### `useStars` (planned)
 
 Manages star lifecycle.
 
@@ -150,7 +150,7 @@ Responsibilities:
 
 ---
 
-### `useKeyboardInput`
+### `useKeyboardInput` (planned)
 
 Handles player input.
 
@@ -163,7 +163,7 @@ Responsibilities:
 
 ---
 
-### `useScoring`
+### `useScoring` (planned)
 
 Handles score calculations.
 
@@ -178,7 +178,7 @@ Responsibilities:
 
 ### `useAudio`
 
-Centralized sound manager.
+Centralized sound manager (implemented).
 
 Responsibilities:
 

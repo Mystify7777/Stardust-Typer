@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { getWordForDifficulty } from '../utils/wordLists'
+import { getWordForPackAndDifficulty } from '../utils/wordLists'
 
 const DIFFICULTY_CONFIG = {
 	Easy: { spawnInterval: 1600, speed: 60, scoreMultiplier: 1 },
@@ -21,6 +21,7 @@ export default function useGameLoop({
 	isRunning,
 	paused = false,
 	difficulty,
+	wordPack = 'Core',
 	resetSeed = 0,
 	onLifeLost,
 	onScoreGain,
@@ -60,7 +61,7 @@ export default function useGameLoop({
 	}
 
 	const spawnStar = (type = 'word') => {
-		const word = getWordForDifficulty(difficulty)
+		const word = getWordForPackAndDifficulty(wordPack, difficulty)
 		const x = 8 + Math.random() * 84 // percentage across stage, keeps inside view
 		const star = { id: crypto.randomUUID(), word, x, y: -30, typed: 0, difficulty, type, mistyped: false }
 		syncStars((prev) => [...prev, star])

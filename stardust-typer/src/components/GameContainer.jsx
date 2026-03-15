@@ -59,6 +59,7 @@ const GameContainer = () => {
     isRunning: gameState === "playing" && !paused,
     paused,
     difficulty,
+    wordPack,
     resetSeed: loopSeed,
     onLifeLost: (lost = 1) => {
       playLoseLife();
